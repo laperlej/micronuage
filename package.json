@@ -1,0 +1,14 @@
+{
+  "name": "e9d01a5340404c7f",
+  "main": "e9d01a5340404c7f@945.js",
+  "version": "945.0.0",
+  "homepage": "https://observablehq.com/d/e9d01a5340404c7f",
+  "author": {
+    "name": "Serge-Étienne Parent",
+    "url": "https://observablehq.com/@essicolo"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}
