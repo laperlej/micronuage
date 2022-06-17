@@ -1,55 +1,31 @@
-import define1 from "./79750b3b8e929d9d@226.js";
-import define2 from "./7dfec509126263f5@315.js";
+import define1 from "./3799afbb78a8700c@587.js";
+import define2 from "./79750b3b8e929d9d@226.js";
+
+function _1(md){return(
+md`# Micro-NuAge Explorer`
+)}
 
 function _logo_nuage(FileAttachment){return(
 FileAttachment("logo_nuage.svg").image({width: 200})
-)}
-
-function _2(md){return(
-md`# Micro-NuAge Explorer`
 )}
 
 function _3(html,pred_warning){return(
 html`${pred_warning}`
 )}
 
-function _mt(inputsGroup,mt_inputlist){return(
-inputsGroup(mt_inputlist)
+function _display(dashboard,html){return(
+dashboard(html`
+  <div style="display:flex">
+  <div data-region="left" style="padding-right:20px"></div>
+  <div data-region="right"></div>
+`)
 )}
 
-function _pred(inputsGroup,pred_inputlist){return(
-inputsGroup(
-  pred_inputlist
-)
-)}
-
-function _pred3_slider(Inputs,pred3_range,pred3){return(
-Inputs.range(pred3_range, {step: 0.01, label: pred3 + " value"})
-)}
-
-function _7(Plot,target,pred3,pred3_val,target_range,pred1,pred2,data){return(
-Plot.plot({
-  height: 640, width: 640,
-  color: {
-    scheme: "burd",
-    legend: true,
-    label: target + " at " + pred3 + " = " + pred3_val[0].toFixed(2),
-    domain: target_range,
-    reverse: true
-  },
-  x : {label: pred1},
-  y : {label: pred2},
-  marks: [
-    Plot.rect(data.filter(d => d['z'] == pred3_val), Plot.bin({}, {x: "x", y: "y", fill: "fit", inset: 0}))
-  ]
-})
-)}
-
-function _8(button,data){return(
+function _5(button,data){return(
 button(data)
 )}
 
-function _9(md){return(
+function _6(md){return(
 md`
 ## Methodology
 
@@ -101,67 +77,103 @@ One of three different types of surfaces can be selected.
 `
 )}
 
-function _10(md){return(
+function _7(md){return(
 md`The application was designed by [Serge-Étienne Parent](https://observablehq.com/@essicolo), 2022.`
 )}
 
-function _11(md){return(
+function _8(md){return(
 md`## Appendix`
 )}
 
-function _url(){return(
-"https://raw.githubusercontent.com/essicolo/nutriapp-test/master/1_1_A_Tocopherol_Cluster_1_PC1_Cholesterol.zip"
+function _9(md){return(
+md`### Dashboard`
 )}
 
-function _selected_file(filename,model,target,pred1,pred2,pred3,target_names,predictor_names){return(
-filename(model, target, pred1, pred2, pred3, target_names,  predictor_names)
+function _10(display,Plot,target_name,predz_name,predz_roundedvalue,target_range,predx_name,predx_range,predy_name,predy_range,data,invalidation){return(
+display(
+  'right',
+  Plot.plot({
+    height: 540, width: 540,
+    color: {
+      scheme: "burd",
+      legend: true,
+      label: target_name + " at " + predz_name + " = " + predz_roundedvalue[0].toFixed(2),
+      domain: target_range,
+      reverse: true
+    },
+    x : {label: predx_name, domain: [predx_range[0] + 0.4 * predx_range[0], predx_range[1]]},
+    y : {label: predy_name, domain: [predy_range[0] + 0.05 * predy_range[0], predy_range[1]]},
+    marks: [
+      Plot.ruleX([0]),
+      Plot.ruleY([0]),
+      Plot.rect(data.filter(d => d['z'] == predz_roundedvalue), Plot.bin({}, {x: "x", y: "y", fill: "fit", inset: 1.5}))
+    ]
+  }),
+  invalidation
+)
 )}
 
-function _mt_inputlist(Inputs,target_names)
+function _predz_value(Inputs,predz_range,predz_name,display,invalidation,Generators)
 {
-  const input_list = [[
-    Inputs.select([1, 2, 3], {label: "Model type", value: 1, width: 150}),
-    Inputs.select(target_names.map(d => d["hname"]), {label: "Target", width: 150})
-  ]];
-  return input_list;
+  const input = Inputs.range(predz_range, {step: 0.01, label: predz_name + " value"});
+  display('left', input, invalidation);
+  return Generators.input(input);
 }
 
 
-function _model(mt){return(
-mt[0][0]
-)}
-
-function _target(mt){return(
-mt[0][1]
-)}
-
-function _pred_inputlist(Inputs,predictor_names)
+function _predz_name(Inputs,predictor_names,display,invalidation,Generators)
 {
-  const input_list = [[
-    Inputs.select(predictor_names.map(d => d["hname"]).sort(), {label: "Micronutrient 1 (x-axis)", value: "Cluster 1, PC1", width: 150}),
-    Inputs.select(predictor_names.map(d => d["hname"]).sort(), {label: "Micronutrient 2 (y-axis)", value: "Cluster 1, PC1", width: 150}),
-    Inputs.select(predictor_names.map(d => d["hname"]).sort(), {label: "Micronutrient 3 (slider)", value: "Cluster 1, PC1", width: 150})
-  ]];
-  return input_list;
+  const input = Inputs.select(predictor_names.map(d => d["hname"]).sort(), {label: "Micronutrient 3 (z)", value: "Cluster 3, PC1"});
+  display('left', input, invalidation);
+  return Generators.input(input);
 }
 
 
-function _pred1(pred){return(
-pred[0][0]
+function _predy_name(Inputs,predictor_names,display,invalidation,Generators)
+{
+  const input = Inputs.select(predictor_names.map(d => d["hname"]).sort(), {label: "Micronutrient 2 (y)", value: "Cluster 2, PC1"});
+  display('left', input, invalidation);
+  return Generators.input(input);
+}
+
+
+function _predx_name(Inputs,predictor_names,display,invalidation,Generators)
+{
+  const input = Inputs.select(predictor_names.map(d => d["hname"]).sort(), {label: "Micronutrient 1 (x)", value: "Cluster 1, PC1"});
+  display('left', input, invalidation);
+  return Generators.input(input);
+}
+
+
+function _target_name(Inputs,target_names,display,invalidation,Generators)
+{
+  const input = Inputs.select(target_names.map(d => d["hname"]), {label: "Target"});
+  display('left', input, invalidation);
+  return Generators.input(input);
+}
+
+
+function _model_name(Inputs,display,invalidation,Generators)
+{
+  const input = Inputs.select([1, 2, 3], {label: "Model type"});
+  display('left', input, invalidation);
+  return Generators.input(input);
+}
+
+
+function _17(md){return(
+md`### Variables`
 )}
 
-function _pred2(pred){return(
-pred[0][1]
-)}
-
-function _pred3(pred){return(
-pred[0][2]
+function _selected_file(filename,model_name,target_name,predx_name,predy_name,predz_name,target_names,predictor_names){return(
+filename(
+  model_name, target_name, predx_name, predy_name, predz_name, target_names,  predictor_names)
 )}
 
 function _pred_warning(preddup)
 {
   if (preddup) 
-    var message = '<div style = "padding: 5px; background-color: #f6f6f6; border: 1px solid #000;">⚠️ Select three different predictors</div>';
+    var message = '<div style = "padding: 5px; background-color: #f6f6f6; border: 1px solid #000;">⚠️ Error: select three different predictors</div>';
   else
     var message = ""
   return message
@@ -172,11 +184,19 @@ function _target_range(findrange,data){return(
 findrange(data, 'fit')
 )}
 
-function _pred3_range(findrange,data){return(
+function _predx_range(findrange,data){return(
+findrange(data, 'x')
+)}
+
+function _predy_range(findrange,data){return(
+findrange(data, 'y')
+)}
+
+function _predz_range(findrange,data){return(
 findrange(data, 'z')
 )}
 
-function _pred3_val(data,pred3_slider)
+function _predz_roundedvalue(data,predz_value)
 {
   // The value set in the slider is practically continuous (step = 0.01)
   // however the value of z in the downloaded data is discrete
@@ -184,7 +204,7 @@ function _pred3_val(data,pred3_slider)
   // a filter is applied in the plot to retain only the array equal to the z value
   const z_vals = data.map(d => d['z']);
   const z_unique = [...new Set(z_vals)];
-  const z_dist = z_unique.map(d => Math.abs(d - pred3_slider));
+  const z_dist = z_unique.map(d => Math.abs(d - predz_value));
   const z_isnearest = z_dist.map(d => d == Math.min.apply(Math, z_dist));
   const z_nearest = z_unique.filter((d, i) => z_isnearest[i]) 
   return z_nearest
@@ -274,22 +294,40 @@ function filename(model, target, pred1, pred2, pred3, target_names, predictor_na
 }
 )}
 
-function _preddup(pred1,pred2,pred3)
+function _preddup(predx_name,predy_name,predz_name)
 {
-  const preds = [pred1, pred2, pred3];
+  const preds = [predx_name, predy_name, predz_name];
   const isDuplicate = preds.some((item, index) => index !== preds.indexOf(item));
   return isDuplicate;
 }
 
 
-async function _data(url,jszip,d3){return(
-await fetch(url)
+function _url(){return(
+"https://raw.githubusercontent.com/essicolo/nutriapp-test/master/1_1_A_Tocopherol_Cluster_1_PC1_Cholesterol.zip"
+)}
+
+function _31(md){return(
+md`### Downloaded data`
+)}
+
+async function _data(url,jszip,d3)
+{
+  const data = await fetch(url)
   .then(x => x.arrayBuffer())
   .then(x => jszip.loadAsync(x))
   .then(x => {
     const file = Object.keys(x.files)[0];
     return x.file(file).async("string").then(x => d3.csvParse(x, d3.autoType));
   })
+  console.log(data)
+  return data
+}
+
+
+function _33(md){return(
+md`### Helpers
+
+I need a dashboard function, a download button, an unzip utility and tools for tidy data manipulations.`
 )}
 
 function _button(d3,DOM){return(
@@ -323,48 +361,49 @@ export default function define(runtime, observer) {
   const main = runtime.module();
   function toString() { return this.url; }
   const fileAttachments = new Map([
-    ["logo_nuage.svg", {url: new URL("./files/3cf92498184248d47c5f9b645a675d47a61d4630af717a3cbb6534d21fd2eca4b5aa130f01efd33d5d3853486c2d727f5a8b3cc162068fdd6689187a1d3cb15b", import.meta.url), mimeType: "image/svg+xml", toString}]
+    ["logo_nuage.svg", {url: new URL("./files/3cf92498184248d47c5f9b645a675d47a61d4630af717a3cbb6534d21fd2eca4b5aa130f01efd33d5d3853486c2d727f5a8b3cc162068fdd6689187a1d3cb15b.svg", import.meta.url), mimeType: "image/svg+xml", toString}]
   ]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
+  main.variable(observer()).define(["md"], _1);
   main.variable(observer("logo_nuage")).define("logo_nuage", ["FileAttachment"], _logo_nuage);
-  main.variable(observer()).define(["md"], _2);
   main.variable(observer()).define(["html","pred_warning"], _3);
-  main.variable(observer("viewof mt")).define("viewof mt", ["inputsGroup","mt_inputlist"], _mt);
-  main.variable(observer("mt")).define("mt", ["Generators", "viewof mt"], (G, _) => G.input(_));
-  main.variable(observer("viewof pred")).define("viewof pred", ["inputsGroup","pred_inputlist"], _pred);
-  main.variable(observer("pred")).define("pred", ["Generators", "viewof pred"], (G, _) => G.input(_));
-  main.variable(observer("viewof pred3_slider")).define("viewof pred3_slider", ["Inputs","pred3_range","pred3"], _pred3_slider);
-  main.variable(observer("pred3_slider")).define("pred3_slider", ["Generators", "viewof pred3_slider"], (G, _) => G.input(_));
-  main.variable(observer()).define(["Plot","target","pred3","pred3_val","target_range","pred1","pred2","data"], _7);
-  main.variable(observer()).define(["button","data"], _8);
+  main.variable(observer("viewof display")).define("viewof display", ["dashboard","html"], _display);
+  main.variable(observer("display")).define("display", ["Generators", "viewof display"], (G, _) => G.input(_));
+  main.variable(observer()).define(["button","data"], _5);
+  main.variable(observer()).define(["md"], _6);
+  main.variable(observer()).define(["md"], _7);
+  main.variable(observer()).define(["md"], _8);
   main.variable(observer()).define(["md"], _9);
-  main.variable(observer()).define(["md"], _10);
-  main.variable(observer()).define(["md"], _11);
-  main.variable(observer("url")).define("url", _url);
-  main.variable(observer("selected_file")).define("selected_file", ["filename","model","target","pred1","pred2","pred3","target_names","predictor_names"], _selected_file);
-  main.variable(observer("mt_inputlist")).define("mt_inputlist", ["Inputs","target_names"], _mt_inputlist);
-  main.variable(observer("model")).define("model", ["mt"], _model);
-  main.variable(observer("target")).define("target", ["mt"], _target);
-  main.variable(observer("pred_inputlist")).define("pred_inputlist", ["Inputs","predictor_names"], _pred_inputlist);
-  main.variable(observer("pred1")).define("pred1", ["pred"], _pred1);
-  main.variable(observer("pred2")).define("pred2", ["pred"], _pred2);
-  main.variable(observer("pred3")).define("pred3", ["pred"], _pred3);
+  main.variable(observer()).define(["display","Plot","target_name","predz_name","predz_roundedvalue","target_range","predx_name","predx_range","predy_name","predy_range","data","invalidation"], _10);
+  main.variable(observer("predz_value")).define("predz_value", ["Inputs","predz_range","predz_name","display","invalidation","Generators"], _predz_value);
+  main.variable(observer("predz_name")).define("predz_name", ["Inputs","predictor_names","display","invalidation","Generators"], _predz_name);
+  main.variable(observer("predy_name")).define("predy_name", ["Inputs","predictor_names","display","invalidation","Generators"], _predy_name);
+  main.variable(observer("predx_name")).define("predx_name", ["Inputs","predictor_names","display","invalidation","Generators"], _predx_name);
+  main.variable(observer("target_name")).define("target_name", ["Inputs","target_names","display","invalidation","Generators"], _target_name);
+  main.variable(observer("model_name")).define("model_name", ["Inputs","display","invalidation","Generators"], _model_name);
+  main.variable(observer()).define(["md"], _17);
+  main.variable(observer("selected_file")).define("selected_file", ["filename","model_name","target_name","predx_name","predy_name","predz_name","target_names","predictor_names"], _selected_file);
   main.variable(observer("pred_warning")).define("pred_warning", ["preddup"], _pred_warning);
   main.variable(observer("target_range")).define("target_range", ["findrange","data"], _target_range);
-  main.variable(observer("pred3_range")).define("pred3_range", ["findrange","data"], _pred3_range);
-  main.variable(observer("pred3_val")).define("pred3_val", ["data","pred3_slider"], _pred3_val);
+  main.variable(observer("predx_range")).define("predx_range", ["findrange","data"], _predx_range);
+  main.variable(observer("predy_range")).define("predy_range", ["findrange","data"], _predy_range);
+  main.variable(observer("predz_range")).define("predz_range", ["findrange","data"], _predz_range);
+  main.variable(observer("predz_roundedvalue")).define("predz_roundedvalue", ["data","predz_value"], _predz_roundedvalue);
   main.variable(observer("predictor_names")).define("predictor_names", _predictor_names);
   main.variable(observer("target_names")).define("target_names", _target_names);
   main.variable(observer("findrange")).define("findrange", _findrange);
   main.variable(observer("filename")).define("filename", ["aq"], _filename);
-  main.variable(observer("preddup")).define("preddup", ["pred1","pred2","pred3"], _preddup);
+  main.variable(observer("preddup")).define("preddup", ["predx_name","predy_name","predz_name"], _preddup);
+  main.variable(observer("url")).define("url", _url);
+  main.variable(observer()).define(["md"], _31);
   main.variable(observer("data")).define("data", ["url","jszip","d3"], _data);
+  main.variable(observer()).define(["md"], _33);
+  const child1 = runtime.module(define1);
+  main.import("dashboard", child1);
   main.variable(observer("button")).define("button", ["d3","DOM"], _button);
   main.variable(observer("jszip")).define("jszip", ["require"], _jszip);
-  const child1 = runtime.module(define1);
-  main.import("aq", child1);
-  main.import("op", child1);
   const child2 = runtime.module(define2);
-  main.import("inputsGroup", child2);
+  main.import("aq", child2);
+  main.import("op", child2);
   return main;
 }
