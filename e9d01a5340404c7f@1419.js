@@ -375,8 +375,11 @@ function _filename(aq) {
     // order names by weights
     // Note: order is wrong
     const predtable_u = aq.table({ n: prednames, w: weights });
+    console.log(predtable_u);
     const predtable_o = predtable_u.orderby("w");
+    console.log(predtable_o);
     const prednames_o = predtable_o.array("n");
+    console.log(prednames_o);
 
     // string of ordered predictors
     const prednames_s = prednames_o.join("_");
