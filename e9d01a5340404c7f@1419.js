@@ -393,8 +393,11 @@ function _preddup(predx_name, predy_name, predz_name) {
   return isDuplicate;
 }
 
-function _url() {
-  return "https://raw.githubusercontent.com/essicolo/nutriapp-test/master/3_2_Trans._F._Acids_Vitamin_D_Cluster_7_PC1.zip";
+function _url(filename) {
+  const a = "1_1_A_Tocopherol_Cluster_1_PC1_Cholesterol.zip";
+  const b = "3_2_Trans._F._Acids_Vitamin_D_Cluster_7_PC1.zip";
+  const c = "3_3_Folic_Acid_Equiv._Selenium_Vitamin_C.zip";
+  return "https://raw.githubusercontent.com/essicolo/nutriapp-test/master/" + c;
 }
 
 function _31(md) {
@@ -603,7 +606,7 @@ export default function define(runtime, observer) {
   main
     .variable(observer("preddup"))
     .define("preddup", ["predx_name", "predy_name", "predz_name"], _preddup);
-  main.variable(observer("url")).define("url", _url);
+  main.variable(observer("url")).define("url", ["filename"], _url);
   main.variable(observer()).define(["md"], _31);
   main.variable(observer("data")).define("data", ["url", "jszip", "d3"], _data);
   main.variable(observer()).define(["md"], _33);
