@@ -285,7 +285,7 @@ function filename(model, target, pred1, pred2, pred3, target_names, predictor_na
   // Note: order is wrong 
   const predtable_u = aq.table({n: prednames, w: weights});
   const predtable_o = predtable_u.orderby('w');
-  const prednames_o = predtable_o.array('n')
+  const prednames_o = predtable_o.array('n').reverse();
 
   // string of ordered predictors
   const prednames_s = prednames_o.join('_');
@@ -302,8 +302,8 @@ function _preddup(predx_name,predy_name,predz_name)
 }
 
 
-function _url(){return(
-"https://raw.githubusercontent.com/essicolo/nutriapp-test/master/1_1_A_Tocopherol_Cluster_1_PC1_Cholesterol.zip"
+function _url(selected_file){return(
+"https://raw.githubusercontent.com/cohenaginglab/micronuage-data/main/" + selected_file
 )}
 
 function _31(md){return(
@@ -394,7 +394,7 @@ export default function define(runtime, observer) {
   main.variable(observer("findrange")).define("findrange", _findrange);
   main.variable(observer("filename")).define("filename", ["aq"], _filename);
   main.variable(observer("preddup")).define("preddup", ["predx_name","predy_name","predz_name"], _preddup);
-  main.variable(observer("url")).define("url", _url);
+  main.variable(observer("url")).define("url", ["selected_file"], _url);
   main.variable(observer()).define(["md"], _31);
   main.variable(observer("data")).define("data", ["url","jszip","d3"], _data);
   main.variable(observer()).define(["md"], _33);
