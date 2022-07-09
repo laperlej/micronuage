@@ -181,7 +181,7 @@ function _pred_warning(preddup)
 
 
 function _target_range(findrange,data){return(
-findrange(data, 'fit')
+[-1.5,1.5]//findrange(data, 'fit')
 )}
 
 function _predx_range(findrange,data){return(
